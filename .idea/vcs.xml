@@ -2,7 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Week 1/Day 5 python/flashcards" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Week 2/max exercise10" vcs="Git" />
   </component>
 </project>
