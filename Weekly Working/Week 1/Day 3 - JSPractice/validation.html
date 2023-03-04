@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2 Valid chars</title>
+    <style>
+        .empty{
+            border: red 2px solid;
+    }
+    </style>
+    <script>
+            // = is an assignement
+            // == is a value comparison
+            // === comparison of value and Type value and string r int etc
+
+        function report(){            
+            if (t1.value ==""){
+                alert("number 1 is missing");
+            } else {
+                if (t2.value == ""){
+                    alert("Number 2 is missing");
+                } else { //parseInt change to an int
+                    t3.value = parseInt(t1.value) + parseInt(t2.value);
+                }
+            }
+        }
+        
+        function emptyCheck() {
+            if (elem.value.length < 1){
+                // could be done by == "0" as well
+                elem.classList.add("empty");
+            } else {
+                elem.classList.remove("empty");
+            }
+        }
+    
+    </script>
+</head>
+
+<body>
+    First Number
+    <!--//onfocus = clicking into something onblur is when you click out of 
+        something passing'this' to emptyCheck it means THIS element that called it-->
+    <input type="text" id="t1" size ="4" maxlength="4" onblur="emptyCheck(this)">
+    <br>
+
+    Second Number
+    <input type="text" id="t2" size="4" maxlength="4" onblur="emptyCheck(this)">
+    <r></r>
+    <input type="button" value="addition" onclick="report()">
+    <br>
+    Result
+    <output id="t3"></output>
+    
+</body>
+</html>

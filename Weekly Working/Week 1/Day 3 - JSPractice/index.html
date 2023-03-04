@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .Green{
+            color: green;
+        }
+        </style>
+</head>
+
+<body>
+    <!--*************************************************-->
+    <!--doing it like this inline is not best practice!!!-->
+    <!--*************************************************-->
+
+
+    <h2>Some intro into JavaScript (JS)</h2>
+    <!--by having the onmouseover this will add the Green class to this paragraph. amazing-->
+    <p id="demo" onmouseover="this.classList.add('Green')">Js can change an element - Mouse oveer me to change colour to green</p>
+    <!--by having the onmouseover this will add the Green class to this paragraph then on subsequent hovers it removes it-->
+    <p id="demo" onmouseover="this.classList.toggle('Green')">Js can change an element - mouse over me to toggle colour change</p>
+    <!--onclick is an event listener like onmouseover-->
+    <!-- alter, confirm, prompt etc. response to the event listener-->
+    <button type="button" onclick="alert('Hi')">Click Me for alert</button>
+    <button type="button" onclick="confirm('Hi')">Click Me for confirm</button>
+    <button type="button" onclick="prompt('Hi')">Click Me for prompt</button>
+    <!-- on click find an element by Id and log it to the console. added parameter of innerHTML logs only the HTML. good for debugging-->
+    <button type="button" onclick="console.log(document.getElementById('demo').innerHTML)">Log this element to the console Log</button>
+    <!-- on click find an element by Id and change the inner HTML-->
+    <button type="button" onclick="document.getElementById('demo').innerHTML = `I've changed with inline JS`" >Click Me for inline JS</button>
+
+    <!--**************************-->
+    <!-- doing it with functions!!-->
+    <!--**************************-->
+
+
+     <!-- on click find an element by Id and change the inner HTML-->
+    <button type="button" onclick="myFunct()">Click Me for function1</button>
+
+    <button type="button" onclick="myFunct2()">click me for function2</button>
+
+    <!--This is where in page javascripts are usually stored for  defined functions-->
+    <!--src is added below to point to the seperate index/js assource rather than in page-->
+    <script src="index.js">
+
+        //this is commeneted out as I am using a seperate script file index.js
+       // function myFunct(){
+       //     document.getElementById('demo').innerHTML = `I've changed`
+       // } 
+
+    </script>
+</body>
