@@ -72,3 +72,8 @@ myDictionary['Phil'] = 'Red'
 print(myDictionary)
 
 print('\nExercise 3c\n')
+print(list(myDictionary.values()))
+new_dict = list(myDictionary.values())
+count = 0
+for i in new_dict:
+    count = count + new_dict.count(i)
