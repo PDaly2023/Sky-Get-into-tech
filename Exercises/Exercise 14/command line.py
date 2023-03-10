@@ -27,9 +27,7 @@ def process_choices(p1_choice,p2_choice,p1_score,p2_score):
             print('you win!\n')
             p1_score += 1
         p1_choice = None
-        
-        
-        
+
     #P1 CHOSE PAPER
     elif p1_choice == 'paper':    
         print('player chose paper')
@@ -45,8 +43,6 @@ def process_choices(p1_choice,p2_choice,p1_score,p2_score):
             p1_score += 1
         p1_choice = None
        
-
-
     #P1 CHOSE SCISSORS
     elif p1_choice == 'scissors': 
         print('player chose scissors')
