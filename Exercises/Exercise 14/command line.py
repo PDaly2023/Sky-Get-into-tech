@@ -58,7 +58,7 @@ def process_choices(p1_choice,p2_choice,p1_score,p2_score):
         p1_choice = None
 
     else:
-        print('I can only accept the following inputs: Rock, paper or scissors\n')
+        print('I can only accept the following inputs: r, p or s\n')
 
     return(p1_score,p2_score)
 
@@ -73,7 +73,7 @@ def convert_letter_to_word(player_choice):
         
 
 while leave == False:        
-    player_choice = input('Please choose Rock, Paper Or Scissors: (can be input as r, p, s) ').lower()
+    player_choice = input('Please choose Rock, Paper Or Scissors: (input as r, p, s) ').lower()
     player_choice = convert_letter_to_word(player_choice)
     cpu_choice_random = random.randint(0,2)
     cpu_choice = choices[cpu_choice_random]
