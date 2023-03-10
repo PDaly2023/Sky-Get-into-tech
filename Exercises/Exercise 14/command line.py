@@ -67,20 +67,18 @@ def process_choices(p1_choice,p2_choice,p1_score,p2_score):
     return(p1_score,p2_score)
 
 
-def convert_letter_to_word(letter):
-    value = None
-    if len(letter) != 1:
-        letter = letter[0]
-    if len(letter) == 1:
-        search_key = letter
-        value = [val for key, val in dict_choices.items() if search_key in key]
-        return(value[0])
-                
+def convert_letter_to_word(player_choice):
+    if player_choice == 'r' or player_choice == 'p' or player_choice == 's':
+        search_key = player_choice
+        player_choice = [val for key, val in dict_choices.items() if search_key in key]
+        return(player_choice[0])
+    else:
+        return(player_choice)
         
 
 while leave == False:        
     player_choice = input('Please choose Rock, Paper Or Scissors: (can be input as r, p, s) ').lower()
-    player_choice = convert_letter_to_word(player_choice,)  
+    player_choice = convert_letter_to_word(player_choice)
     cpu_choice_random = random.randint(0,2)
     cpu_choice = choices[cpu_choice_random]
     p1_score, p2_score = process_choices(player_choice, cpu_choice, p1_score, p2_score)
