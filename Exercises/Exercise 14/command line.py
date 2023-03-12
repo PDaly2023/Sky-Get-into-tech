@@ -15,8 +15,8 @@ leave = False
 def process_choices(p1_choice,p2_choice,p1_score,p2_score):
     #P1 CHOSE ROCK
     if p1_choice == 'rock':
-        print('player chose rock')
-        print('cpu chose', p2_choice)
+        print('Player chose rock')
+        print('CPU chose', p2_choice)
         if p1_choice == p2_choice:
             print('It\'s a draw!\n')
             draw = 1
@@ -76,6 +76,8 @@ while leave == False:
     player_choice = input('Please choose Rock, Paper Or Scissors: (input as r, p, s) ').lower()
     player_choice = convert_letter_to_word(player_choice)
     cpu_choice_random = random.randint(0,2)
+
+    
     cpu_choice = choices[cpu_choice_random]
     p1_score, p2_score = process_choices(player_choice, cpu_choice, p1_score, p2_score)
     print('player score =', p1_score)
