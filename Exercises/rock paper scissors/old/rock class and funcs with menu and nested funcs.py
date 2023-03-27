@@ -44,6 +44,7 @@ class Main_logic:
 class Scaling:
     def __init__(self):
         self.scalfactor = 1
+        
     def best_of_scale(self, best_of):
         self.best_of = best_of
         print('Game now set to best of', self.best_of,'rounds')
@@ -51,11 +52,11 @@ class Scaling:
     
 # initialize game engine
 pygame.init()
+
 #Instantiate mixer
 mixer.init()
 #Set preferred volume
 mixer.music.set_volume(0.5)
-pygame.mixer.Channel(1).play(pygame.mixer.Sound('sound/The World Warrior.mp3'), loops=-1)
 
 #set screen size and initilise window
 window_width=1280
@@ -93,22 +94,28 @@ rock_button_image = pygame.image.load("graphics/rockbutton.png").convert()
 paper_button_image = pygame.image.load("graphics/paperbutton.png").convert()
 scissors_button_image = pygame.image.load("graphics/scissorsbutton.png").convert()
 title = pygame.image.load("graphics/title.png").convert()
-
+pygame.mixer.Channel(1).play(pygame.mixer.Sound('sound/The World Warrior.mp3'), loops=-1)
 
 #rects
 rock_button_rect = rock_button_image.get_rect(topleft =(300, 600))
 paper_button_rect = paper_button_image.get_rect(topleft =(535, 600))
 scissors_button_rect = scissors_button_image.get_rect(topleft =(770, 600))
 
-def get_font(size): 
+def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/font.ttf", size)
 
 def main_menu():
     print('best of ',best_of,'rounds set globally')
+    mixer.music.load('sound/The World Warrior.mp3')
+    mixer.music.play(loops = -1)
     while True:
         screen.blit(title, (0, 0))
+        #Set preferred volume
         
         MENU_MOUSE_POS = pygame.mouse.get_pos()
+
+        #MENU_TEXT = get_font(100).render("MAIN MENU", True, "#b68f40")
+        #MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
 
         play_button = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(160, 630), 
                             text_input="PLAY", font=get_font(75), base_color="#F6780A", hovering_color="White")
@@ -117,6 +124,7 @@ def main_menu():
         quit_button = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(1120, 630), 
                             text_input="QUIT", font=get_font(75), base_color="#F6780A", hovering_color="White")
 
+        #screen.blit(MENU_TEXT, MENU_RECT)
 
         for button in [play_button, options_button, quit_button]:
             button.changeColor(MENU_MOUSE_POS)
@@ -195,7 +203,7 @@ def options():
         
         
 
-#GAME LOOP FUNCTION
+#GAME LOOP
 def play():
     game_active = True
     draw = 0
@@ -221,81 +229,92 @@ def play():
     wins = 0
     p2_wins = 0
 
+        
+# Draw health bars the old way
+#    def draw_health_bars():
+#            #DRAW HEALTH BARS
+#        if p1_health == 2:
+#            screen.blit(fullhealth_image, [217, 26])
+#        if p1_health == 1:
+#            screen.blit(p1_half_health_image, [217, 26])
+#        if p1_health == 0:
+#            screen.blit(empty_health_image, [217, 26])
+#            
+#
+#            
+#        if p2_health == 2:
+#            screen.blit(fullhealth_image, [684, 26])
+#        if p2_health == 1:
+#            screen.blit(p2_half_health_image, [684, 26])
+#        if p2_health == 0:
+#            screen.blit(empty_health_image, [684, 26]) 
 
-#NESTED FUNCTIONS
-    #DRAW PLAYER 1 HEALTH FUNCTION
     def draw_health_bar_p1(pos, size, borderC, barC):
         progress = 1
-        pygame.draw.rect(screen, 'red', (pos, size))
         if p1_starting_health == 5:
             if p1_health == 5:
                 progress = progress
-            elif p1_health == 4:
+            if p1_health == 4:
                 progress = progress - (progress /p1_starting_health)
-            elif p1_health == 3:
+            if p1_health == 3:
                 progress = progress - (progress /p1_starting_health) * 2
-            elif p1_health == 2:
+            if p1_health == 2:
                 progress = progress - (progress /p1_starting_health) * 3
-            elif p1_health == 1:
+            if p1_health == 1:
                 progress = progress - (progress /p1_starting_health) * 4
-            elif p1_health == 0:
+            if p1_health == 0:
                 progress = 0
         if p1_starting_health == 3:
             if p1_health == 3:
                 progress = progress
-            elif p1_health == 2:
+            if p1_health == 2:
                 progress = progress - (progress /p1_starting_health) 
-            elif p1_health == 1:
+            if p1_health == 1:
                 progress = progress - (progress /p1_starting_health) * 2
-            elif p1_health == 0:
+            if p1_health == 0:
                 progress = 0
         if p1_starting_health == 2:
             if p1_health == 2:
                 progress = progress
-            elif p1_health == 1:
+            if p1_health == 1:
                 progress = progress - (progress /p1_starting_health) 
-            elif p1_health == 0:
+            if p1_health == 0:
                 progress = 0
-        pygame.draw.rect(screen, borderC, (pos, size), 1)
+        pygame.draw.rect(screen, borderC, (*pos, *size), 1)
         innerPos  = (pos[0]+3, pos[1]+3)
         innerSize = ((size[0]-6) * progress, size[1]-6)
-        # x co ordinate of right hand side of health bar = 596 - move x pos of inner rectange by subtracting index 0 of tuple innerSize to shift it that many pixels (by size of bar) to the left. y pos is taken from innerPos index 1 to remain the same. pas new variable to pygame.draw.rect
-        new_pos = (593 - innerSize[0], pos[1]+3)
-        pygame.draw.rect(screen, barC, (new_pos, innerSize))
+        pygame.draw.rect(screen, barC, (*innerPos, *innerSize))
 
-        
-    #DRAW PLAYER 2 HEALTH FUNCTION    
     def draw_health_bar_p2(pos, size, borderC, barC):
         progress = 1
-        pygame.draw.rect(screen, 'red', (pos, size))
         if p2_starting_health == 5:
             if p2_health == 5:
                 progress = progress
-            elif p2_health == 4:
+            if p2_health == 4:
                 progress = progress - (progress /p2_starting_health)
-            elif p2_health == 3:
+            if p2_health == 3:
                 progress = progress - (progress /p2_starting_health) * 2
-            elif p2_health == 2:
+            if p2_health == 2:
                 progress = progress - (progress /p2_starting_health) * 3
-            elif p2_health == 1:
+            if p2_health == 1:
                 progress = progress - (progress /p2_starting_health) * 4
-            elif p2_health == 0:
+            if p2_health == 0:
                 progress = 0
         if p2_starting_health == 3:
             if p2_health == 3:
                 progress = progress
-            elif p2_health == 2:
+            if p2_health == 2:
                 progress = progress - (progress /p2_starting_health) 
-            elif p2_health == 1:
+            if p2_health == 1:
                 progress = progress - (progress /p2_starting_health) * 2
-            elif p2_health == 0:
+            if p2_health == 0:
                 progress = 0
         if p2_starting_health == 2:
             if p2_health == 2:
                 progress = progress
-            elif p2_health == 1:
+            if p2_health == 1:
                 progress = progress - (progress /p2_starting_health) 
-            elif p2_health == 0:
+            if p2_health == 0:
                 progress = 0
         pygame.draw.rect(screen, borderC, (*pos, *size), 1)
         innerPos  = (pos[0]+3, pos[1]+3)
@@ -303,18 +322,19 @@ def play():
         pygame.draw.rect(screen, barC, (*innerPos, *innerSize))
 
 
-    #DRAW END OF GAME OVERLAY FUNCTION
     def draw_overlay(finished_game):
             #P1 WINS
             
             if p2_health == 0:
                 screen.blit(gameover_image, [359, 190])
+                #pygame.mixer.Channel(2).play(pygame.mixer.Sound('sound/you_win.mp3'))
                 finished_game = 1
                 return(finished_game)
                 
             #P1 LOSES
             if p1_health == 0:
                 screen.blit(gameover2_image, [359, 190])
+                #pygame.mixer.Channel(2).play(pygame.mixer.Sound('sound/you_lose.mp3'))
                 finished_game = 1
                 return(finished_game)
 
@@ -323,7 +343,6 @@ def play():
             if draw == 1:
                 screen.blit(drawgame_image, [500, 165])
 
-    #DRAW SPRITES FOR PLAYER 1 AND PLAYER 2(CPU)
     def draw_sprites():
         #draw player sprites
         if action_taken == 1:
@@ -335,13 +354,12 @@ def play():
             if p2_choice == 'scissors':
                 screen.blit(scissors_image_flip, [747, 300])
                 
-    #MAIN GAME WHILE LOOP
+   
     while(dead==False):
         pygame.display.set_caption("Super Rock Paper Scissors Turbo")
-        
-        #EVENT HANDLER
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                #pygame.mixer.Channel(1).pause()
                 dead = True
                 
             elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -423,13 +441,13 @@ def play():
 
 
 
+# testing new health bars
 
-            #set health bar vars and call appropriate functions
-            barPos = (216, 26)
+            barPos = (217, 26)
             barPos_p2 = (684, 26)
             barSize = (379, 27)
             borderColor = (0, 0, 0)
-            barColor = ('orange') 
+            barColor = (0, 128, 0) 
             draw_health_bar_p1(barPos,barSize,borderColor,barColor)
             draw_health_bar_p2(barPos_p2,barSize,borderColor,barColor)
             
